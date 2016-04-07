@@ -58,11 +58,9 @@ public class FileseqTests {
 
         TreeSet<Integer> set = new TreeSet<>();
         for (int i=1; i<10; i=i+2) {
-            System.out.println(i);
             set.add(i);
         }
         for (int i=10; i<100; i=i+5) {
-            System.out.println(i);
             set.add(i);
         }
         assertEquals("0001-0009x2,0010-0095x5", Fileseq.framesToFrameRange(set, 4));
