@@ -67,6 +67,10 @@ public class Fileseq {
         return framesToFrameRange(frames, paddingToZfill(padding));
     }
 
+    public static String framesToFrameRange(TreeSet<Integer> frames) {
+        return framesToFrameRange(frames, 1);
+    }
+
     public static String framesToFrameRange(TreeSet<Integer> frames, int padding) {
         List<String> result = new ArrayList();
         int start = frames.first();
