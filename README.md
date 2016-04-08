@@ -10,7 +10,7 @@ Support for:
 * Comma Delimited: 1-10,10-20
 * Chunked: 1-100x5
 * Filled: 1-100y5
-* Staggered: 1-100:3 (1-100x3, 1-100x2, 1-100)
+* Staggered: 1-100:5 (1-100x5, 2-100x5, 3-100x5, 2-100x5, 5-100x5)
 * Negative frame numbers: -10-100
 * Padding: #=4 padded, @=single pad
 
