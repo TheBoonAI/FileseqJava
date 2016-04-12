@@ -20,7 +20,6 @@ public class FileSequenceTests {
         assertEquals("#", seq.getPadding());
         assertEquals(4, seq.getZfill());
         assertEquals(spec, seq.getFileSpec());
-
     }
 
     @Test
@@ -49,9 +48,14 @@ public class FileSequenceTests {
 
     @Test
     public void testNotAFileSequence() {
-        String spec = "/foo/bar.exr";
-        FileSequence seq = new FileSequence(spec);
-        assertFalse(seq.isValid());
+        String[] specs = new String[] {
+                "/foo/bar.exr",
+                "/foo/bar212121.exr"
+        };
+        for (String spec: specs) {
+            FileSequence seq = new FileSequence(spec);
+            assertFalse(seq.isValid());
+        }
     }
 
     @Test
