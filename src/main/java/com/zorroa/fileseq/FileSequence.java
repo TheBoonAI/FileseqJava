@@ -151,6 +151,10 @@ public class FileSequence {
         return !(dir == null || base == null || ext == null || padding == null);
     }
 
+    public FrameSet getFrameSet() {
+        return new FrameSet(range);
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("FileSequence{");

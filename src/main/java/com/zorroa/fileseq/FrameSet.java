@@ -19,8 +19,10 @@ public class FrameSet implements Iterable<Integer> {
     }
 
     public FrameSet(String range) {
-        for (String part: Splitter.on(",").split(range)) {
-            ranges.add(new Range(part));
+        if (range != null) {
+            for (String part : Splitter.on(",").split(range)) {
+                ranges.add(new Range(part));
+            }
         }
     }
 
