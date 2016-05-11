@@ -47,7 +47,7 @@ public class FileSequence {
                 base = matcher.group(2);
                 range = matcher.group(3);
                 padding = Fileseq.frameToPaddingChars(matcher.group(3));
-                ext = matcher.group(4);
+                ext = matcher.group(5);
             }
         }
 

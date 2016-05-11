@@ -26,7 +26,7 @@ public class Fileseq {
      * Regular expression for matching a file.
      *
      */
-    public static final Pattern PATTERN_ON_DISK = Pattern.compile("^(.*/)?(?:$|(.*?[\\._])(-?\\d+)?(?:(\\.[^.]*$)|$))");
+    public static final Pattern PATTERN_ON_DISK = Pattern.compile("^(.*/)?(?:$|(.*?[\\._])(-?\\d+)?(_\\d+)?(?:(\\.[^.]*$)|$))");
 
     /**
      * Regular expression for matching a frame range.
