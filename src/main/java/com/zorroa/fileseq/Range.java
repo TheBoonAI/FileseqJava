@@ -57,6 +57,13 @@ public class Range implements Iterable<Integer> {
         this(start, end, 1);
     }
 
+    public Range(int range) {
+        this.start = range;
+        this.end = range;
+        this.step = 1;
+        this.stride = Stride.STANDARD;
+    }
+
     public Range(String range) {
         if (range.contains(",")) {
             throw new IllegalArgumentException("Frame ranges cannot have commas, try FrameSet.");
@@ -71,6 +78,10 @@ public class Range implements Iterable<Integer> {
         else {
             throw new IllegalArgumentException("Failed to parse frame range: '" + range + "'");
         }
+    }
+
+    public boolean intersects(Range range) {
+        return range.getStart() >= start && range.getEnd() <= end;
     }
 
     public boolean contains(int frame) {

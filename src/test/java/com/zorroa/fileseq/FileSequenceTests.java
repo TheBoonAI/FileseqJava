@@ -36,6 +36,7 @@ public class FileSequenceTests {
         assertEquals("#", seq.getPadding());
         assertEquals(4, seq.getZfill());
         assertEquals("/foo/bar_1000#.exr", seq.getFileSpec());
+        assertEquals(1, seq.getAttrs(new Range(1000)).get("xsheetColumn"));
     }
 
     @Test

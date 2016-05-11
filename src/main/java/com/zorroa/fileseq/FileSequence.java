@@ -1,7 +1,11 @@
 package com.zorroa.fileseq;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
+import com.google.common.primitives.Ints;
 
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
 
@@ -18,6 +22,11 @@ public class FileSequence {
     private  String range;
     private  String ext;
     private int zfill;
+
+    private static final Comparator<Range> RANGE_SORT =
+            (Range o1, Range o2)->Integer.compare(o1.getStart(), o2.getStart());
+
+    private Map<Range, Map<String, Object>> attrs = Maps.newTreeMap(RANGE_SORT);
 
     public FileSequence(String filespec) {
         /*
@@ -48,12 +57,60 @@ public class FileSequence {
                 range = matcher.group(3);
                 padding = Fileseq.frameToPaddingChars(matcher.group(3));
                 ext = matcher.group(5);
+
+                String xsheet = matcher.group(4);
+                if (xsheet != null) {
+                    Integer value = Ints.tryParse(xsheet.substring(1));
+                    if (value != null) {
+                        setAttr(new Range(range), "xsheetColumn", value);
+                    }
+                }
             }
         }
 
         if (padding != null) {
             zfill = Fileseq.paddingToZfill(padding);
         }
+    }
+
+    public void setAttr(String range, String key, Object value) {
+        setAttr(new Range(range), key, value);
+    }
+
+    public void setAttr(int range, String key, Object value) {
+        setAttr(new Range(range), key, value);
+    }
+
+    public void setAttr(Range range, String key, Object value) {
+        Map<String, Object> rangeAttrs = attrs.get(range);
+        if (rangeAttrs == null) {
+            rangeAttrs = Maps.newHashMap();
+            attrs.put(range, rangeAttrs);
+        }
+        rangeAttrs.put(key, value);
+    }
+
+    public Map<String,Object> getAttrs(int frame) {
+        return getAttrs(new Range(frame));
+    }
+
+    public Map<String,Object> getAttrs(Range range) {
+        Map<String,Object> result = Maps.newHashMap();
+        for (Map.Entry<Range, Map<String, Object>> entry: attrs.entrySet()) {
+            if (range.getStart() > entry.getKey().getStart()) {
+                // We can break here because we know we've iterated past
+                // our start frame.
+                break;
+            }
+            if (range.intersects(entry.getKey())) {
+                result.putAll(entry.getValue());
+            }
+        }
+        return result;
+    }
+
+    public Map<Range, Map<String,Object>> getAllAttrs() {
+        return attrs;
     }
 
     public String getFrame(int frame) {
