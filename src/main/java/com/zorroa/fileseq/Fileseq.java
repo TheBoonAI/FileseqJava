@@ -1,7 +1,6 @@
 package com.zorroa.fileseq;
 
 import com.google.common.collect.ImmutableMap;
-import jdk.internal.org.objectweb.asm.Handle;
 
 import java.util.ArrayList;
 import java.util.List;
