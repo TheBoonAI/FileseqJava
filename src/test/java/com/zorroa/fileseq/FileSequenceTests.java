@@ -64,18 +64,6 @@ public class FileSequenceTests {
     }
 
     @Test
-    public void testSingleFrameWithUnderscore() {
-        String spec = "/foo/bar_0100.exr";
-        FileSequence seq = new FileSequence(spec);
-        assertEquals("/foo/", seq.getDir());
-        assertEquals("bar_", seq.getBase());
-        assertEquals("0100", seq.getRange());
-        assertEquals("#", seq.getPadding());
-        assertEquals(4, seq.getZfill());
-        assertEquals("/foo/bar_0100#.exr", seq.getFileSpec());
-    }
-
-    @Test
     public void testNotAFileSequence() {
         String[] specs = new String[] {
                 "/foo/bar.exr",
